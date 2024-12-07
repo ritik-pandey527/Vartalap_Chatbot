@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000');
+const socket = io(location.hostname); // This uses the current domain automatically
 const messageContainer = document.querySelector('#message-container');
 const messageForm = document.querySelector('#send-container');
 const innermain = document.querySelector("#innermain");
