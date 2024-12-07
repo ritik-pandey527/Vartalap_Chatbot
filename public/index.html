@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Vartalap </title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" href="./favicon.ico">
+	<link rel="stylesheet" href="./style/style.css">
+	<!-- Updated to match server version -->
+	<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.8.1/dist/socket.io.min.js"></script>
+</head>
+
+<body>
+	<div class="loginoverlay" id="loginoverlay">
+		<div class="formcontainer">
+			<div class="imgcontainer">
+				<img src="undraw_secure_login_pdn4.svg" />
+			</div>
+			<form id="usernameform">
+				<h2>Vartalap <span class="logo"><i class="fa fa-commenting"></i> </span></h2>
+				<input type="text" id="username" class="userforminput" autocomplete="off" placeholder="Write your Nick name" />
+				<button type="submit" class="userformsubmit">Continue</button>
+			</form>
+			<img src="./Path%202.svg" class="cornerimg bl" />
+			<img src="./Path%203.svg" class="cornerimg br" />
+		</div>
+	</div>
+	<div class="maincontainer">
+		<div class="screencover" id="screencover" onclick="closeSidebar()"></div>
+		<main class="innermain" id="innermain">
+			<nav class="navcontainer">
+				<div class="navbar">
+					<h2><i class="fa fa-paper-plane-o"></i> Vartalap</h2>
+					<span onclick="openSidebar()"> &#9776; </span>
+				</div>
+			</nav>
+			<div id="message-container" class="message-container"></div>
+		</main>
+		<aside class="sidebar" id="sidebar">
+			<div class="activeuserscont">
+				<div class="activeusertitlecont">
+					<p id="activeusertitle">Active Users</p>
+					<p id="useractive" class="sidetitle"></p>
+				</div>
+				<div class="useractivelist" id="useractivelist"></div>
+			</div>
+			<hr />
+		</aside>
+		<div class="footer">
+			<form id="send-container" class="send-container">
+				<input type="text" id="message-input" placeholder="Write your message" autocomplete="off" class="message-input">
+				<button type="submit" id="send-button" class="send-button"><i class="fa fa-paper-plane-o fa-fw"></i></button>
+				<button class="send-button" id="likebutton"> 👍 </button>
+			</form>
+		</div>
+	</div>
+	<script defer src="./script.js"></script>
+</body>
+
+</html>
