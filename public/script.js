@@ -1,4 +1,4 @@
-const socket = io(location.hostname); // This uses the current domain automatically
+const socket = io();
 const messageContainer = document.querySelector('#message-container');
 const messageForm = document.querySelector('#send-container');
 const innermain = document.querySelector("#innermain");
@@ -25,11 +25,12 @@ const colorstheme = {
     red: "--themecolor: rgb(255, 42, 42); --conmesscolor: rgb(255, 185, 185); --messageinputcolor: rgb(255, 243, 243);",
     purple: "--themecolor: rgb(183, 0, 255); --conmesscolor: rgb(232, 173, 255); --messageinputcolor: rgb(250, 236, 255);"
 }
+
 usernameform.addEventListener('submit', (e) => {
     e.preventDefault();
     name = document.querySelector('#username').value;
     if (name === "" || name === null) {
-        alert("Wrtie a name");
+        alert("Write a name");
     }
     if (name.match(/^[a-zA-Z0-9_ ]+$/)) {
         socket.emit('new-user', name);
@@ -51,13 +52,9 @@ usernameform.addEventListener('submit', (e) => {
 
         //? Socket disconnected
         socket.on('user-disconnected', data => {
-            //passing with full data because it need name of the user who left
             connectionMessage(`${data.name} left`);
-            //removing the current user
             delete data.users[data.id];
             currentusername.innerHTML = Object.keys(data.users).length + " active";
-
-            //updating it
             sidebarusers(data.users);
         });
 
@@ -65,9 +62,8 @@ usernameform.addEventListener('submit', (e) => {
         socket.on('themecolor', color => {
             changetheme(color);
         });
-    }
-    else {
-        alert("Write a alphanumeric name")
+    } else {
+        alert("Write an alphanumeric name")
     }
 })
 
@@ -85,7 +81,6 @@ messageInput.addEventListener("input", (e) => {
         likebtn.style.display = "none";
     }
 });
-
 
 likebtn.addEventListener("click", (e) => {
     appendMessage({ username: name, message: emoji });
@@ -129,7 +124,6 @@ messageForm.addEventListener('submit', e => {
 });
 
 function connectionMessage(msg) {
-    //log in to main chat
     const connectionEL = document.createElement("span");
     connectionEL.className = "conmess";
     connectionEL.innerHTML = msg;
@@ -141,10 +135,8 @@ function connectionMessage(msg) {
 }
 
 function sidebarusers(users) {
-    //log in to side bar
     useractivelist.innerHTML = "";
     Object.keys(users).forEach(key => {
-        // console.log(users[key])
         const newuser = document.createElement("div");
         newuser.classList = "activeusersname";
         newuser.setAttribute("data-inital", getinitals(users[key]));
@@ -158,10 +150,9 @@ function getinitals(name) {
     initials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
     return initials;
 }
+
 function appendMessage(data) {
     const messageElement = document.createElement('span');
-
-    console.log(data);
     const messagediv = document.createElement("div");
     if (data.username === name) {
         messagediv.className = "message messagerightcont";
@@ -201,7 +192,6 @@ function currentTime() {
     }
     return `${hours} : ${minutes}`;
 }
-
 
 function openSidebar() {
     sidebar.style.width = "300px";
